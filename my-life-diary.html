@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="My Life Diary — A premium personal journal, goal tracker, and life management platform.">
+<meta name="theme-color" content="#1a1a2e">
+<title>My Life Diary — Your Personal Life Vault</title>
+<link rel="manifest" href="#" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a2e;
+  --ink-soft: #2d2d44;
+  --ink-muted: #6b6b8a;
+  --ink-faint: #9898b0;
+  --paper: #faf9f7;
+  --paper-warm: #f5f3ef;
+  --paper-card: #ffffff;
+  --paper-glass: rgba(255,255,255,0.85);
+  --border: rgba(26,26,46,0.1);
+  --border-soft: rgba(26,26,46,0.06);
+  --accent: #6b5ce7;
+  --accent-soft: #ede9fd;
+  --accent-dark: #4c3eb5;
+  --gold: #c9a84c;
+  --gold-soft: #fdf4e0;
+  --rose: #e85d7e;
+  --rose-soft: #fdeef3;
+  --teal: #1ea8a0;
+  --teal-soft: #e4f7f6;
+  --green: #2da44e;
+  --green-soft: #eafbee;
+  --shadow-sm: 0 1px 3px rgba(26,26,46,0.06), 0 1px 2px rgba(26,26,46,0.04);
+  --shadow-md: 0 4px 16px rgba(26,26,46,0.08), 0 2px 6px rgba(26,26,46,0.04);
+  --shadow-lg: 0 12px 40px rgba(26,26,46,0.12), 0 4px 12px rgba(26,26,46,0.06);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --sidebar-w: 260px;
+  --header-h: 64px;
+  --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="dark"] {
+  --ink: #e8e6f0;
+  --ink-soft: #c8c4d8;
+  --ink-muted: #8884a8;
+  --ink-faint: #5a5870;
+  --paper: #0f0f1a;
+  --paper-warm: #13131f;
+  --paper-card: #1a1a2e;
+  --paper-glass: rgba(26,26,46,0.92);
+  --border: rgba(232,230,240,0.1);
+  --border-soft: rgba(232,230,240,0.06);
+  --accent: #8b7cf8;
+  --accent-soft: #221f3a;
+  --accent-dark: #a99cf9;
+  --gold: #e4bc6a;
+  --gold-soft: #221a07;
+  --rose: #f07090;
+  --rose-soft: #2a1119;
+  --teal: #3ecfc6;
+  --teal-soft: #0a1f1e;
+  --green: #4dd470;
+  --green-soft: #0a1f0f;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-body);
+  background:var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  overflow-x:hidden;
+  transition:background var(--transition),color var(--transition);
+}
+a{color:var(--accent);text-decoration:none;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;}
+input,textarea,select{font-family:inherit;}
+
+/* ─── LANDING PAGE ─── */
+.landing{display:flex;flex-direction:column;min-height:100vh;}
+.land-nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:var(--header-h);
+  background:var(--paper-glass);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-soft);
+}
+.land-logo{display:flex;align-items:center;gap:10px;}
+.land-logo-mark{
+  width:36px;height:36px;
+  background:linear-gradient(135deg,var(--accent),var(--rose));
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:18px;font-weight:700;color:#fff;
+}
+.land-logo-text{font-family:var(--font-display);font-size:18px;font-weight:600;color:var(--ink);}
+.land-nav-links{display:flex;align-items:center;gap:32px;}
+.land-nav-links a{color:var(--ink-muted);font-size:14px;font-weight:500;transition:color var(--transition);}
+.land-nav-links a:hover{color:var(--ink);}
+.land-nav-actions{display:flex;align-items:center;gap:12px;}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:9px 20px;border-radius:var(--radius-sm);
+  font-size:14px;font-weight:500;
+  transition:all var(--transition);cursor:pointer;border:none;
+}
+.btn-ghost{background:transparent;color:var(--ink-muted);border:1.5px solid var(--border);}
+.btn-ghost:hover{background:var(--paper-warm);color:var(--ink);}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-1px);box-shadow:var(--shadow-md);}
+.btn-lg{padding:14px 32px;font-size:16px;border-radius:var(--radius-md);}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border);}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+
+.hero{
+  padding:160px 48px 100px;
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+  width:800px;height:800px;
+  background:radial-gradient(circle,rgba(107,92,231,0.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-soft);color:var(--accent);
+  padding:6px 16px;border-radius:100px;
+  font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  margin-bottom:28px;
+}
+.hero-title{
+  font-family:var(--font-display);
+  font-size:clamp(42px,7vw,82px);font-weight:700;line-height:1.08;
+  color:var(--ink);margin-bottom:24px;max-width:820px;
+}
+.hero-title em{font-style:italic;color:var(--accent);}
+.hero-sub{
+  font-size:18px;color:var(--ink-muted);line-height:1.7;
+  max-width:560px;margin-bottom:44px;
+}
+.hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:64px;}
+.hero-stats{display:flex;align-items:center;gap:40px;flex-wrap:wrap;justify-content:center;}
+.hero-stat{text-align:center;}
+.hero-stat-num{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--ink);}
+.hero-stat-label{font-size:12px;color:var(--ink-faint);margin-top:2px;}
+
+.features-section{padding:100px 48px;max-width:1100px;margin:0 auto;width:100%;}
+.section-label{
+  font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:16px;
+}
+.section-title{font-family:var(--font-display);font-size:clamp(28px,4vw,48px);font-weight:700;color:var(--ink);margin-bottom:16px;}
+.section-sub{font-size:16px;color:var(--ink-muted);line-height:1.7;max-width:520px;margin-bottom:56px;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;}
+.feature-card{
+  background:var(--paper-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:32px;
+  transition:all var(--transition);
+}
+.feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--accent);}
+.feature-icon{
+  width:48px;height:48px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:20px;
+}
+.feature-title{font-size:17px;font-weight:600;color:var(--ink);margin-bottom:10px;}
+.feature-desc{font-size:14px;color:var(--ink-muted);line-height:1.65;}
+
+/* ─── AUTH ─── */
+.auth-overlay{
+  position:fixed;inset:0;z-index:200;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(15,15,26,0.6);
+  backdrop-filter:blur(8px);
+  padding:24px;
+}
+.auth-card{
+  background:var(--paper-card);border-radius:var(--radius-xl);
+  padding:48px;width:100%;max-width:440px;
+  box-shadow:var(--shadow-lg);
+  border:1px solid var(--border);
+  position:relative;
+}
+.auth-logo{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:36px;}
+.auth-logo-mark{
+  width:56px;height:56px;background:linear-gradient(135deg,var(--accent),var(--rose));
+  border-radius:16px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:26px;font-weight:700;color:#fff;
+}
+.auth-title{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--ink);}
+.auth-sub{font-size:14px;color:var(--ink-muted);text-align:center;margin-top:4px;}
+.form-group{margin-bottom:20px;}
+.form-label{display:block;font-size:13px;font-weight:500;color:var(--ink-soft);margin-bottom:8px;}
+.form-input{
+  width:100%;padding:12px 16px;
+  background:var(--paper-warm);border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);font-size:15px;color:var(--ink);
+  transition:border-color var(--transition),box-shadow var(--transition);
+  outline:none;
+}
+.form-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(107,92,231,0.12);}
+.form-input::placeholder{color:var(--ink-faint);}
+.auth-divider{display:flex;align-items:center;gap:16px;margin:24px 0;}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.auth-divider span{font-size:12px;color:var(--ink-faint);}
+.auth-switch{text-align:center;font-size:14px;color:var(--ink-muted);margin-top:24px;}
+.auth-switch button{color:var(--accent);font-weight:500;background:none;border:none;cursor:pointer;}
+
+/* ─── APP SHELL ─── */
+.app{display:flex;height:100vh;overflow:hidden;}
+.sidebar{
+  width:var(--sidebar-w);min-width:var(--sidebar-w);
+  background:var(--paper-card);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  transition:all var(--transition);
+  z-index:50;
+}
+.sidebar-header{
+  padding:20px 20px 16px;
+  border-bottom:1px solid var(--border-soft);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.sidebar-logo{display:flex;align-items:center;gap:10px;}
+.sidebar-logo-mark{
+  width:32px;height:32px;
+  background:linear-gradient(135deg,var(--accent),var(--rose));
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:15px;font-weight:700;color:#fff;
+}
+.sidebar-logo-text{font-family:var(--font-display);font-size:15px;font-weight:600;color:var(--ink);}
+.sidebar-nav{flex:1;overflow-y:auto;padding:12px 12px;}
+.sidebar-nav::-webkit-scrollbar{width:4px;}
+.sidebar-nav::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px;}
+.nav-section{margin-bottom:24px;}
+.nav-section-label{
+  font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--ink-faint);padding:0 8px;margin-bottom:6px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 10px;border-radius:var(--radius-sm);
+  font-size:14px;font-weight:500;color:var(--ink-muted);
+  cursor:pointer;transition:all var(--transition);
+  position:relative;
+}
+.nav-item:hover{background:var(--paper-warm);color:var(--ink);}
+.nav-item.active{background:var(--accent-soft);color:var(--accent);}
+.nav-item .nav-icon{font-size:18px;width:20px;flex-shrink:0;}
+.nav-badge{
+  margin-left:auto;background:var(--accent);color:#fff;
+  font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;
+}
+.sidebar-footer{padding:16px;border-top:1px solid var(--border-soft);}
+.user-info{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.user-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--rose));
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;color:#fff;flex-shrink:0;
+}
+.user-name{font-size:13px;font-weight:600;color:var(--ink);}
+.user-plan{font-size:11px;color:var(--accent);}
+
+/* ─── MAIN CONTENT ─── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--paper);}
+.topbar{
+  height:var(--header-h);display:flex;align-items:center;
+  padding:0 28px;border-bottom:1px solid var(--border);
+  background:var(--paper-card);gap:16px;flex-shrink:0;
+}
+.topbar-title{font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--ink);flex:1;}
+.search-box{
+  display:flex;align-items:center;gap:10px;
+  background:var(--paper-warm);border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);padding:8px 14px;
+  width:280px;transition:all var(--transition);
+}
+.search-box:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(107,92,231,0.1);}
+.search-box input{background:none;border:none;outline:none;font-size:14px;color:var(--ink);width:100%;}
+.search-box input::placeholder{color:var(--ink-faint);}
+.topbar-actions{display:flex;align-items:center;gap:10px;}
+.icon-btn{
+  width:36px;height:36px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink-muted);font-size:18px;
+  transition:all var(--transition);cursor:pointer;border:1px solid var(--border);
+  background:var(--paper-card);
+}
+.icon-btn:hover{background:var(--paper-warm);color:var(--ink);}
+.content-area{flex:1;overflow-y:auto;padding:28px;}
+.content-area::-webkit-scrollbar{width:6px;}
+.content-area::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px;}
+
+/* ─── DASHBOARD ─── */
+.dash-greeting{margin-bottom:28px;}
+.dash-greeting h2{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.dash-greeting p{font-size:15px;color:var(--ink-muted);}
+.dash-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px;}
+.stat-card{
+  background:var(--paper-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:20px;
+  transition:all var(--transition);
+}
+.stat-card:hover{box-shadow:var(--shadow-md);}
+.stat-icon{
+  width:40px;height:40px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;margin-bottom:12px;
+}
+.stat-num{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--ink);}
+.stat-label{font-size:12px;color:var(--ink-muted);margin-top:2px;}
+.stat-trend{font-size:11px;margin-top:4px;}
+.trend-up{color:var(--green);}
+.trend-down{color:var(--rose);}
+
+.dash-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;margin-bottom:28px;}
+.card{
+  background:var(--paper-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);overflow:hidden;
+}
+.card-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;border-bottom:1px solid var(--border-soft);
+}
+.card-title{font-size:15px;font-weight:600;color:var(--ink);}
+.card-action{font-size:13px;color:var(--accent);cursor:pointer;font-weight:500;}
+.card-body{padding:20px;}
+
+/* QUOTE CARD */
+.quote-card{
+  background:linear-gradient(135deg,var(--accent) 0%,#9b59b6 100%);
+  border:none;color:#fff;border-radius:var(--radius-lg);padding:28px;margin-bottom:20px;
+  position:relative;overflow:hidden;
+}
+.quote-card::before{
+  content:'"';position:absolute;top:-20px;right:20px;
+  font-family:var(--font-display);font-size:160px;color:rgba(255,255,255,0.1);
+  line-height:1;
+}
+.quote-text{font-family:var(--font-display);font-size:18px;font-style:italic;line-height:1.55;position:relative;margin-bottom:16px;}
+.quote-author{font-size:13px;opacity:0.8;font-weight:500;}
+
+/* ACTIVITY CALENDAR */
+.activity-grid{display:grid;grid-template-columns:repeat(52,1fr);gap:3px;margin-top:12px;}
+.act-cell{
+  width:10px;height:10px;border-radius:2px;
+  background:var(--border);cursor:pointer;transition:all var(--transition);
+}
+.act-cell:hover{transform:scale(1.3);}
+.act-0{background:var(--border);}
+.act-1{background:rgba(107,92,231,0.25);}
+.act-2{background:rgba(107,92,231,0.5);}
+.act-3{background:rgba(107,92,231,0.75);}
+.act-4{background:var(--accent);}
+
+/* MOOD TRACKER */
+.mood-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;}
+.mood-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:100px;
+  font-size:14px;cursor:pointer;border:2px solid transparent;
+  transition:all var(--transition);background:var(--paper-warm);
+}
+.mood-chip:hover,.mood-chip.selected{border-color:var(--accent);background:var(--accent-soft);}
+.mood-chip.mood-great.selected{border-color:var(--green);background:var(--green-soft);}
+.mood-chip.mood-good.selected{border-color:var(--teal);background:var(--teal-soft);}
+.mood-chip.mood-meh.selected{border-color:var(--gold);background:var(--gold-soft);}
+.mood-chip.mood-bad.selected{border-color:var(--rose);background:var(--rose-soft);}
+
+/* ─── DIARY ENTRIES ─── */
+.entries-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
+.entries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+.entry-card{
+  background:var(--paper-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:22px;cursor:pointer;
+  transition:all var(--transition);
+}
+.entry-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--accent);}
+.entry-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.entry-date{font-size:12px;color:var(--ink-faint);font-family:var(--font-mono);}
+.entry-mood-icon{font-size:16px;}
+.entry-category{
+  font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;
+  background:var(--accent-soft);color:var(--accent);
+}
+.entry-title{font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.3;}
+.entry-preview{font-size:13px;color:var(--ink-muted);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.entry-footer{display:flex;align-items:center;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-soft);}
+.entry-tags{display:flex;gap:6px;flex-wrap:wrap;flex:1;}
+.tag{font-size:11px;color:var(--ink-faint);background:var(--paper-warm);padding:3px 8px;border-radius:4px;}
+.entry-actions{display:flex;gap:6px;}
+.entry-action-btn{
+  width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--ink-muted);transition:all var(--transition);cursor:pointer;
+}
+.entry-action-btn:hover{background:var(--paper-warm);color:var(--ink);}
+
+/* ─── EDITOR ─── */
+.editor-overlay{position:fixed;inset:0;z-index:150;display:flex;flex-direction:column;background:var(--paper);}
+.editor-nav{
+  height:var(--header-h);display:flex;align-items:center;padding:0 28px;gap:16px;
+  border-bottom:1px solid var(--border);background:var(--paper-card);flex-shrink:0;
+}
+.editor-nav-left{display:flex;align-items:center;gap:12px;flex:1;}
+.editor-status{font-size:12px;color:var(--ink-faint);}
+.autosave-dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:4px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.editor-toolbar{
+  display:flex;align-items:center;gap:4px;padding:10px 20px;
+  border-bottom:1px solid var(--border-soft);background:var(--paper-card);flex-wrap:wrap;
+}
+.tool-btn{
+  padding:6px 10px;border-radius:6px;font-size:13px;font-weight:500;
+  color:var(--ink-muted);cursor:pointer;transition:all var(--transition);
+  background:transparent;border:1px solid transparent;
+}
+.tool-btn:hover{background:var(--paper-warm);color:var(--ink);}
+.tool-btn.active{background:var(--accent-soft);color:var(--accent);}
+.tool-sep{width:1px;height:20px;background:var(--border);margin:0 6px;}
+.editor-body{flex:1;display:flex;overflow:hidden;}
+.editor-main{flex:1;display:flex;flex-direction:column;padding:40px;overflow-y:auto;max-width:820px;margin:0 auto;width:100%;}
+.editor-entry-title{
+  font-family:var(--font-display);font-size:36px;font-weight:700;
+  border:none;outline:none;background:transparent;color:var(--ink);
+  width:100%;margin-bottom:8px;line-height:1.2;
+}
+.editor-entry-title::placeholder{color:var(--ink-faint);}
+.editor-meta-row{display:flex;align-items:center;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
+.editor-date{font-size:13px;color:var(--ink-faint);font-family:var(--font-mono);}
+.editor-content{
+  flex:1;outline:none;font-size:16px;line-height:1.8;color:var(--ink);
+  min-height:400px;
+}
+.editor-content:empty::before{content:attr(data-placeholder);color:var(--ink-faint);}
+
+/* ─── GOALS ─── */
+.goals-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.goals-filter{display:flex;gap:8px;}
+.filter-pill{
+  padding:7px 16px;border-radius:100px;font-size:13px;font-weight:500;
+  cursor:pointer;transition:all var(--transition);
+  background:var(--paper-warm);color:var(--ink-muted);border:1px solid var(--border);
+}
+.filter-pill.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.goals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+.goal-card{
+  background:var(--paper-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:24px;transition:all var(--transition);
+}
+.goal-card:hover{box-shadow:var(--shadow-md);}
+.goal-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px;}
+.goal-type-badge{
+  font-size:11px;font-weight:600;padding:4px 12px;border-radius:100px;
+  background:var(--gold-soft);color:var(--gold);
+}
+.goal-type-badge.long{background:var(--accent-soft);color:var(--accent);}
+.goal-title{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.3;}
+.goal-desc{font-size:13px;color:var(--ink-muted);line-height:1.6;margin-bottom:16px;}
+.goal-progress{margin-bottom:12px;}
+.progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.progress-label{font-size:12px;color:var(--ink-muted);}
+.progress-pct{font-size:13px;font-weight:600;color:var(--ink);}
+.progress-bar{height:6px;background:var(--border);border-radius:100px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:100px;transition:width 0.8s cubic-bezier(0.4,0,0.2,1);}
+.goal-footer{display:flex;align-items:center;justify-content:space-between;}
+.goal-deadline{font-size:12px;color:var(--ink-faint);display:flex;align-items:center;gap:4px;}
+
+/* ─── IDEAS VAULT ─── */
+.vault-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+.idea-card{
+  background:var(--paper-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:22px;cursor:pointer;
+  transition:all var(--transition);border-left:4px solid var(--accent);
+}
+.idea-card:hover{box-shadow:var(--shadow-md);}
+.idea-card.idea-thought{border-left-color:var(--teal);}
+.idea-card.idea-lesson{border-left-color:var(--gold);}
+.idea-card.idea-observation{border-left-color:var(--rose);}
+.idea-type{font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.idea-card.idea-thought .idea-type{color:var(--teal);}
+.idea-card.idea-lesson .idea-type{color:var(--gold);}
+.idea-card.idea-observation .idea-type{color:var(--rose);}
+.idea-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.3;}
+.idea-body{font-size:13px;color:var(--ink-muted);line-height:1.6;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
+.idea-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+
+/* ─── BOOKS ─── */
+.books-shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;}
+.book-card{cursor:pointer;transition:all var(--transition);text-align:center;}
+.book-card:hover{transform:translateY(-4px);}
+.book-cover{
+  border-radius:4px 12px 12px 4px;
+  aspect-ratio:2/3;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:12px;
+  margin-bottom:12px;padding:20px;
+  position:relative;overflow:hidden;
+  box-shadow:var(--shadow-md);
+}
+.book-cover::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:24px;
+  background:rgba(0,0,0,0.15);
+}
+.book-icon{font-size:36px;position:relative;}
+.book-cover-title{font-family:var(--font-display);font-size:15px;font-weight:700;color:#fff;text-align:center;position:relative;line-height:1.3;}
+.book-meta{font-size:12px;color:var(--ink-faint);}
+.book-name{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px;}
+.add-book-card .book-cover{
+  background:var(--paper-warm);box-shadow:none;
+  border:2px dashed var(--border);
+}
+.add-book-card .book-icon{color:var(--ink-faint);}
+.add-book-card:hover .book-cover{border-color:var(--accent);background:var(--accent-soft);}
+
+/* ─── AI ASSISTANT ─── */
+.ai-panel{max-width:720px;margin:0 auto;}
+.ai-hero{text-align:center;padding:40px 20px;margin-bottom:32px;}
+.ai-avatar{
+  width:72px;height:72px;margin:0 auto 16px;
+  background:linear-gradient(135deg,var(--accent),var(--rose));
+  border-radius:20px;display:flex;align-items:center;justify-content:center;
+  font-size:32px;
+}
+.ai-hero h2{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.ai-hero p{font-size:15px;color:var(--ink-muted);}
+.ai-suggestions{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:28px;}
+.ai-suggestion{
+  padding:14px 16px;background:var(--paper-card);border:1px solid var(--border);
+  border-radius:var(--radius-md);cursor:pointer;transition:all var(--transition);
+  font-size:13px;color:var(--ink-muted);text-align:left;
+}
+.ai-suggestion:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+.ai-suggestion strong{display:block;color:var(--ink);font-size:13px;font-weight:600;margin-bottom:4px;}
+.chat-messages{display:flex;flex-direction:column;gap:16px;margin-bottom:24px;min-height:200px;}
+.chat-msg{display:flex;gap:12px;align-items:flex-start;}
+.chat-msg.user{flex-direction:row-reverse;}
+.chat-avatar{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;
+}
+.chat-avatar.ai-av{background:linear-gradient(135deg,var(--accent),var(--rose));color:#fff;}
+.chat-avatar.user-av{background:var(--gold);color:#fff;}
+.chat-bubble{
+  max-width:80%;padding:12px 16px;border-radius:var(--radius-md);font-size:14px;line-height:1.6;
+  background:var(--paper-card);border:1px solid var(--border);color:var(--ink);
+}
+.chat-msg.user .chat-bubble{background:var(--accent);color:#fff;border-color:var(--accent);}
+.chat-input-row{
+  display:flex;gap:10px;
+  background:var(--paper-card);border:1.5px solid var(--border);
+  border-radius:var(--radius-lg);padding:12px 16px;
+  transition:border-color var(--transition);
+}
+.chat-input-row:focus-within{border-color:var(--accent);}
+.chat-input-row input{flex:1;background:none;border:none;outline:none;font-size:14px;color:var(--ink);}
+.chat-send{
+  width:36px;height:36px;border-radius:var(--radius-sm);
+  background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;transition:all var(--transition);font-size:16px;border:none;
+}
+.chat-send:hover{background:var(--accent-dark);}
+
+/* ─── PROFILE ─── */
+.profile-panel{max-width:640px;}
+.profile-cover{
+  height:160px;background:linear-gradient(135deg,var(--accent),var(--rose));
+  border-radius:var(--radius-lg);margin-bottom:0;position:relative;overflow:hidden;
+}
+.profile-card{
+  background:var(--paper-card);border:1px solid var(--border);
+  border-radius:0 0 var(--radius-lg) var(--radius-lg);padding:0 28px 28px;
+  margin-bottom:20px;
+}
+.profile-avatar-wrap{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  transform:translateY(-40px);margin-bottom:-20px;
+}
+.profile-avatar{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--rose));
+  border:4px solid var(--paper-card);
+  display:flex;align-items:center;justify-content:center;
+  font-size:30px;font-weight:700;color:#fff;
+  font-family:var(--font-display);
+}
+.profile-name{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.profile-bio{font-size:14px;color:var(--ink-muted);line-height:1.6;}
+.settings-section{
+  background:var(--paper-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:24px;margin-bottom:16px;
+}
+.settings-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:18px;}
+.setting-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 0;border-bottom:1px solid var(--border-soft);
+}
+.setting-row:last-child{border-bottom:none;}
+.setting-label{font-size:14px;color:var(--ink);}
+.setting-desc{font-size:12px;color:var(--ink-faint);margin-top:2px;}
+.toggle{
+  width:44px;height:24px;border-radius:100px;
+  background:var(--border);position:relative;cursor:pointer;
+  transition:background var(--transition);flex-shrink:0;border:none;
+}
+.toggle.on{background:var(--accent);}
+.toggle::after{
+  content:'';position:absolute;top:3px;left:3px;
+  width:18px;height:18px;border-radius:50%;background:#fff;
+  transition:transform var(--transition);
+}
+.toggle.on::after{transform:translateX(20px);}
+
+/* ─── MODAL ─── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(15,15,26,0.6);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+}
+.modal{
+  background:var(--paper-card);border-radius:var(--radius-xl);
+  border:1px solid var(--border);box-shadow:var(--shadow-lg);
+  width:100%;max-width:560px;overflow:hidden;
+}
+.modal-header{padding:24px 28px 0;display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--ink);}
+.modal-body{padding:24px 28px 28px;}
+.modal-close{
+  width:32px;height:32px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink-muted);cursor:pointer;font-size:18px;
+  transition:all var(--transition);border:1px solid var(--border);background:var(--paper-warm);
+}
+.modal-close:hover{background:var(--paper-card);color:var(--ink);}
+
+/* ─── NOTIFICATIONS TOAST ─── */
+.toast-container{position:fixed;bottom:28px;right:28px;z-index:300;display:flex;flex-direction:column;gap:10px;}
+.toast{
+  display:flex;align-items:center;gap:12px;
+  background:var(--ink);color:var(--paper-card);
+  padding:14px 18px;border-radius:var(--radius-md);
+  box-shadow:var(--shadow-lg);min-width:280px;
+  animation:slideIn 0.3s cubic-bezier(0.4,0,0.2,1);
+  font-size:14px;
+}
+.toast.success{background:#1a6b35;}
+.toast.error{background:#8b1a1a;}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0;}to{transform:none;opacity:1;}}
+
+/* ─── LOADING ─── */
+.loading-screen{
+  position:fixed;inset:0;z-index:500;
+  background:var(--paper);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:20px;
+}
+.loading-logo{
+  width:72px;height:72px;
+  background:linear-gradient(135deg,var(--accent),var(--rose));
+  border-radius:20px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display);font-size:34px;font-weight:700;color:#fff;
+  animation:breathe 2s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+.loading-dots{display:flex;gap:8px;}
+.loading-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--accent);
+  animation:bounce 1.2s ease-in-out infinite;
+}
+.loading-dot:nth-child(2){animation-delay:0.2s;}
+.loading-dot:nth-child(3){animation-delay:0.4s;}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-10px);}}
+
+/* ─── MOBILE ─── */
+.mobile-menu-btn{display:none;width:36px;height:36px;border-radius:var(--radius-sm);align-items:center;justify-content:center;cursor:pointer;color:var(--ink-muted);font-size:20px;border:1px solid var(--border);background:var(--paper-card);}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:40;}
+@media(max-width:900px){
+  .mobile-menu-btn{display:flex;}
+  .sidebar{
+    position:fixed;left:-100%;top:0;bottom:0;z-index:50;
+    box-shadow:var(--shadow-lg);transition:left 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .sidebar.open{left:0;}
+  .sidebar-overlay{display:block;}
+  .land-nav{padding:0 20px;}
+  .land-nav-links{display:none;}
+  .hero{padding:120px 20px 60px;}
+  .features-section{padding:60px 20px;}
+  .dash-grid{grid-template-columns:1fr;}
+  .content-area{padding:16px;}
+  .topbar{padding:0 16px;}
+  .search-box{display:none;}
+}
+@media(max-width:600px){
+  .dash-stats{grid-template-columns:repeat(2,1fr);}
+  .entries-grid,.goals-grid,.vault-grid{grid-template-columns:1fr;}
+  .books-shelf{grid-template-columns:repeat(2,1fr);}
+  .editor-main{padding:20px;}
+  .editor-entry-title{font-size:24px;}
+  .auth-card{padding:28px 20px;}
+}
+
+/* Select/dropdown */
+.form-select{
+  appearance:none;-webkit-appearance:none;
+  background:var(--paper-warm) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b8a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+  padding-right:36px;
+}
+
+/* HIDDEN */
+.hidden{display:none!important;}
+
+/* PAGE TRANSITIONS */
+.page{animation:pageFade 0.25s ease;}
+@keyframes pageFade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+/* Vision Board */
+.vision-board{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;}
+.vision-cell{
+  background:var(--paper-card);border:2px dashed var(--border);
+  border-radius:var(--radius-lg);aspect-ratio:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  cursor:pointer;transition:all var(--transition);color:var(--ink-faint);font-size:13px;
+}
+.vision-cell:hover{border-color:var(--accent);color:var(--accent);}
+.vision-cell.filled{border-style:solid;border-color:var(--border);background:var(--paper-warm);}
+.vision-cell .vision-emoji{font-size:40px;}
+
+/* Encryption badge */
+.enc-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;color:var(--green);background:var(--green-soft);
+  padding:3px 10px;border-radius:100px;font-weight:500;
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-logo">M</div>
+  <div style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--ink);">My Life Diary</div>
+  <div class="loading-dots"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div>
+</div>
+
+<!-- LANDING PAGE -->
+<div class="landing" id="landingPage">
+  <nav class="land-nav">
+    <div class="land-logo">
+      <div class="land-logo-mark">M</div>
+      <span class="land-logo-text">My Life Diary</span>
+    </div>
+    <div class="land-nav-links">
+      <a href="#">Features</a>
+      <a href="#">Security</a>
+      <a href="#">Pricing</a>
+      <a href="#">Download</a>
+    </div>
+    <div class="land-nav-actions">
+      <button class="btn btn-ghost" onclick="showAuth('login')">Sign in</button>
+      <button class="btn btn-primary" onclick="showAuth('signup')">Start free →</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-eyebrow">✦ Your Personal Life Vault</div>
+    <h1 class="hero-title">Write your story.<br><em>Own your life.</em></h1>
+    <p class="hero-sub">A premium journal, goal tracker, and personal knowledge vault — beautifully designed for the way you think.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary btn-lg" onclick="showAuth('signup')">Begin your diary →</button>
+      <button class="btn btn-outline btn-lg" onclick="enterDemo()">✦ Explore demo</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-num">∞</div><div class="hero-stat-label">Entries</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">🔒</div><div class="hero-stat-label">End-to-end encrypted</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">☁</div><div class="hero-stat-label">Cloud synced</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">✦ AI</div><div class="hero-stat-label">Smart assistant</div></div>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <div class="section-label">Everything you need</div>
+    <h2 class="section-title">Your mind deserves<br>a beautiful home</h2>
+    <p class="section-sub">Every thought, goal, memory, and idea — captured and organized in one luxurious space.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--accent-soft);font-size:22px;">📔</div>
+        <div class="feature-title">Rich Diary System</div>
+        <div class="feature-desc">Write daily entries with a beautiful rich-text editor. Add images, videos, and attachments. Auto-saves as you type with mood tracking.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--gold-soft);font-size:22px;">🎯</div>
+        <div class="feature-title">Goals & Vision Board</div>
+        <div class="feature-desc">Track short and long-term goals with progress percentages, deadlines, and a visual vision board to keep you inspired.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--teal-soft);font-size:22px;">💡</div>
+        <div class="feature-title">Ideas Vault</div>
+        <div class="feature-desc">Save thoughts, business ideas, life lessons, and observations. Tag everything and find it instantly with advanced search.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--rose-soft);font-size:22px;">📚</div>
+        <div class="feature-title">Personal Book System</div>
+        <div class="feature-desc">Create unlimited digital books and notebooks with chapters, table of contents, bookmarks, and export to PDF, DOCX, and EPUB.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--accent-soft);font-size:22px;">🤖</div>
+        <div class="feature-title">AI Writing Assistant</div>
+        <div class="feature-desc">Powered by Claude AI — summarize entries, generate insights, ask questions about your notes, and get writing suggestions.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:var(--green-soft);font-size:22px;">🔒</div>
+        <div class="feature-title">Bank-level Security</div>
+        <div class="feature-desc">End-to-end encryption for all your entries. Two-factor authentication, secure cloud backup, and privacy-first design.</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:60px 48px;text-align:center;border-top:1px solid var(--border-soft);">
+    <h2 style="font-family:var(--font-display);font-size:32px;font-weight:700;margin-bottom:16px;color:var(--ink);">Start writing today</h2>
+    <p style="color:var(--ink-muted);margin-bottom:28px;">Free forever. No credit card required.</p>
+    <button class="btn btn-primary btn-lg" onclick="showAuth('signup')">Create your diary →</button>
+    <div style="margin-top:20px;font-size:12px;color:var(--ink-faint);">✦ Beautiful design &nbsp;·&nbsp; 🔒 End-to-end encrypted &nbsp;·&nbsp; ☁ Cloud synced</div>
+  </section>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="auth-overlay hidden" id="authOverlay">
+  <div class="auth-card" id="authCard">
+    <div class="auth-logo">
+      <div class="auth-logo-mark">M</div>
+      <div>
+        <div class="auth-title" id="authTitle">Welcome back</div>
+        <div class="auth-sub" id="authSub">Sign in to your diary</div>
+      </div>
+    </div>
+    <div id="authFormWrap">
+      <div class="form-group" id="nameGroup" style="display:none;">
+        <label class="form-label">Full name</label>
+        <input type="text" class="form-input" id="nameInput" placeholder="Your name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input type="email" class="form-input" id="emailInput" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="passwordInput" placeholder="••••••••">
+      </div>
+      <div id="forgotWrap" style="text-align:right;margin-top:-8px;margin-bottom:16px;">
+        <a href="#" style="font-size:13px;color:var(--accent);" onclick="showForgot(event)">Forgot password?</a>
+      </div>
+      <button class="btn btn-primary" style="width:100%;padding:13px;" id="authSubmitBtn" onclick="handleAuth()">
+        <span id="authBtnText">Sign in</span>
+      </button>
+    </div>
+    <div class="auth-divider"><span>or</span></div>
+    <button class="btn btn-outline" style="width:100%;padding:13px;" onclick="enterDemo()">✦ Enter demo (no account needed)</button>
+    <div class="auth-switch">
+      <span id="authSwitchText">Don't have an account?</span>
+      <button onclick="toggleAuthMode()" id="authSwitchBtn">Create one</button>
+    </div>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div class="app hidden" id="appShell">
+  <!-- Sidebar overlay for mobile -->
+  <div class="sidebar-overlay hidden" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-mark">M</div>
+        <span class="sidebar-logo-text">My Life Diary</span>
+      </div>
+      <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme" id="themeBtn">☀️</button>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-label">Overview</div>
+        <div class="nav-item active" onclick="navigate('dashboard')">
+          <span class="nav-icon">🏠</span> Dashboard
+        </div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Capture</div>
+        <div class="nav-item" onclick="navigate('diary')">
+          <span class="nav-icon">📔</span> Diary
+          <span class="nav-badge" id="entryCount">12</span>
+        </div>
+        <div class="nav-item" onclick="navigate('vault')">
+          <span class="nav-icon">💡</span> Ideas Vault
+        </div>
+        <div class="nav-item" onclick="navigate('books')">
+          <span class="nav-icon">📚</span> My Books
+        </div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Life</div>
+        <div class="nav-item" onclick="navigate('goals')">
+          <span class="nav-icon">🎯</span> Goals
+        </div>
+        <div class="nav-item" onclick="navigate('memories')">
+          <span class="nav-icon">🌟</span> Memories
+        </div>
+        <div class="nav-item" onclick="navigate('achievements')">
+          <span class="nav-icon">🏆</span> Achievements
+        </div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-label">Tools</div>
+        <div class="nav-item" onclick="navigate('ai')">
+          <span class="nav-icon">🤖</span> AI Assistant
+        </div>
+        <div class="nav-item" onclick="navigate('profile')">
+          <span class="nav-icon">👤</span> Profile & Settings
+        </div>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info" onclick="navigate('profile')">
+        <div class="user-avatar" id="sidebarAvatar">S</div>
+        <div>
+          <div class="user-name" id="sidebarName">Sarah Johnson</div>
+          <div class="user-plan">✦ Premium Member</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="topbar">
+      <button class="mobile-menu-btn" onclick="openSidebar()">☰</button>
+      <div class="topbar-title" id="topbarTitle">Good morning ☀️</div>
+      <div class="search-box">
+        <span style="color:var(--ink-faint);font-size:16px;">🔍</span>
+        <input type="text" placeholder="Search everything..." id="globalSearch" oninput="handleSearch(this.value)">
+        <span style="font-size:11px;color:var(--ink-faint);font-family:var(--font-mono);">⌘K</span>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" onclick="navigate('diary','new')" title="New entry">✏️</button>
+        <button class="icon-btn" id="topThemeBtn" onclick="toggleTheme()" title="Toggle theme">☀️</button>
+        <button class="icon-btn" onclick="showNotification('Syncing…','info')" title="Sync">☁️</button>
+      </div>
+    </div>
+    <div class="content-area" id="contentArea"></div>
+  </div>
+</div>
+
+<!-- EDITOR OVERLAY -->
+<div class="editor-overlay hidden" id="editorOverlay">
+  <div class="editor-nav">
+    <div class="editor-nav-left">
+      <button class="btn btn-ghost" style="padding:7px 14px;" onclick="closeEditor()">← Back</button>
+      <div class="editor-status">
+        <span class="autosave-dot"></span>
+        <span id="autosaveStatus">Auto-saved</span>
+      </div>
+      <div class="enc-badge">🔒 Encrypted</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <select class="form-input form-select" style="width:140px;padding:8px 12px;font-size:13px;" id="entryCategory">
+        <option>Personal</option>
+        <option>Travel</option>
+        <option>Work</option>
+        <option>Gratitude</option>
+        <option>Dreams</option>
+        <option>Reflections</option>
+      </select>
+      <button class="btn btn-primary" style="padding:8px 18px;" onclick="saveEntry()">Save</button>
+    </div>
+  </div>
+  <div class="editor-toolbar">
+    <button class="tool-btn" onclick="format('bold')"><b>B</b></button>
+    <button class="tool-btn" onclick="format('italic')"><i>I</i></button>
+    <button class="tool-btn" onclick="format('underline')"><u>U</u></button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" onclick="format('h1')">H1</button>
+    <button class="tool-btn" onclick="format('h2')">H2</button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" onclick="format('ul')">• List</button>
+    <button class="tool-btn" onclick="format('ol')">1. List</button>
+    <button class="tool-btn" onclick="format('quote')">❝ Quote</button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" onclick="insertImage()">🖼 Image</button>
+    <button class="tool-btn" onclick="insertLink()">🔗 Link</button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" onclick="aiEnhance()">✨ AI Enhance</button>
+    <button class="tool-btn" onclick="aiSummarize()">📝 Summarize</button>
+  </div>
+  <div class="editor-body">
+    <div class="editor-main">
+      <input type="text" class="editor-entry-title" id="entryTitle" placeholder="Give your entry a title…">
+      <div class="editor-meta-row">
+        <span class="editor-date" id="editorDate"></span>
+        <div style="display:flex;gap:6px;">
+          <span style="font-size:13px;color:var(--ink-muted);">Mood:</span>
+          <span class="mood-chip" onclick="setEditorMood(this,'great')">😄</span>
+          <span class="mood-chip" onclick="setEditorMood(this,'good')">🙂</span>
+          <span class="mood-chip" onclick="setEditorMood(this,'meh')">😐</span>
+          <span class="mood-chip" onclick="setEditorMood(this,'bad')">😔</span>
+        </div>
+      </div>
+      <div class="editor-content" id="editorContent" contenteditable="true" data-placeholder="Begin writing your story… Pour out your thoughts, memories, and reflections here. This is your safe space." oninput="onEditorChange()"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ADD GOAL MODAL -->
+<div class="modal-overlay hidden" id="goalModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">New Goal</div>
+      <button class="modal-close" onclick="closeModal('goalModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Goal title</label>
+        <input type="text" class="form-input" id="goalTitle" placeholder="What do you want to achieve?">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-input" rows="3" id="goalDesc" placeholder="Why does this matter to you?" style="resize:vertical;"></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="form-group">
+          <label class="form-label">Type</label>
+          <select class="form-input form-select" id="goalType">
+            <option value="short">Short-term</option>
+            <option value="long">Long-term</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Deadline</label>
+          <input type="date" class="form-input" id="goalDeadline">
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;padding:13px;" onclick="addGoal()">Create goal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD IDEA MODAL -->
+<div class="modal-overlay hidden" id="ideaModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add to Ideas Vault</div>
+      <button class="modal-close" onclick="closeModal('ideaModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Title</label>
+        <input type="text" class="form-input" id="ideaTitle" placeholder="Name your idea or thought">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Type</label>
+        <select class="form-input form-select" id="ideaType">
+          <option value="idea">💡 Business Idea</option>
+          <option value="thought">🧠 Thought</option>
+          <option value="lesson">📖 Life Lesson</option>
+          <option value="observation">👁 Observation</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Content</label>
+        <textarea class="form-input" rows="4" id="ideaContent" placeholder="Describe your idea in detail…" style="resize:vertical;"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tags (comma separated)</label>
+        <input type="text" class="form-input" id="ideaTags" placeholder="business, money, future">
+      </div>
+      <button class="btn btn-primary" style="width:100%;padding:13px;" onclick="addIdea()">Save to vault</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let state = {
+  user: null,
+  currentPage: 'dashboard',
+  authMode: 'login',
+  theme: 'light',
+  isDemo: false,
+  entries: [],
+  goals: [],
+  ideas: [],
+  books: [],
+  chatHistory: [],
+  selectedMood: null,
+  editorEntry: null,
+  autoSaveTimer: null,
+};
+
+// SAMPLE DATA
+const sampleEntries = [
+  {id:1,title:"A morning of clarity",date:"2025-06-17",mood:"great",category:"Personal",preview:"Today I woke up before dawn and watched the sky turn from deep indigo to a wash of golden light. There's something sacred about these moments...",tags:["morning","reflection","gratitude"],content:"Today I woke up before dawn and watched the sky turn from deep indigo to a wash of golden light. There's something sacred about these moments of transition. I made tea, sat by the window, and simply observed. No phone, no noise — just me and the world waking up. I want to hold onto this feeling of peace."},
+  {id:2,title:"Tokyo, day three",date:"2025-06-14",mood:"good",category:"Travel",preview:"Wandered through Yanaka, one of Tokyo's last old neighborhoods. Paper lanterns, temple cats, the smell of incense and green tea...",tags:["travel","japan","tokyo"],content:"Wandered through Yanaka, one of Tokyo's last old neighborhoods. Paper lanterns, temple cats, the smell of incense and green tea from a tiny shop run by an elderly woman who didn't speak English but smiled the whole time we talked with gestures. These moments are why I travel."},
+  {id:3,title:"The idea that won't leave",date:"2025-06-12",mood:"good",category:"Work",preview:"Been thinking about this concept for weeks now. A platform that connects local artisans with conscious consumers — not just a marketplace, but a story-telling engine...",tags:["ideas","startup","creative"],content:"Been thinking about this concept for weeks now. A platform that connects local artisans with conscious consumers — not just a marketplace, but a story-telling engine. Each product comes with a video diary from the maker. The craft, the person, the meaning."},
+  {id:4,title:"Gratitude practice, week 8",date:"2025-06-10",mood:"great",category:"Gratitude",preview:"Eight weeks of daily gratitude journaling. What I've noticed: my default emotional state has shifted...",tags:["gratitude","mindfulness","habits"],content:"Eight weeks of daily gratitude journaling. What I've noticed: my default emotional state has shifted from mild anxiety to something closer to contentment. The practice isn't magic — it's just attention training. You find what you look for."},
+  {id:5,title:"Conversation with my father",date:"2025-06-08",mood:"meh",category:"Personal",preview:"We talked for two hours. About his childhood, about choices he made, about what he wished he'd known...",tags:["family","life","lessons"],content:"We talked for two hours. About his childhood, about choices he made, about what he wished he'd known. He's 67 now and I realize I never really knew him as a person — only as a father. That's a strange and humbling discovery."},
+  {id:6,title:"First marathon training run",date:"2025-06-05",mood:"good",category:"Personal",preview:"18km. I didn't think I'd make it past 12 but something clicked around the 14km mark and I just kept going...",tags:["running","fitness","discipline"],content:"18km. I didn't think I'd make it past 12 but something clicked around the 14km mark and I just kept going. The city at 6am is a different place — quieter, softer, kinder somehow. I might be becoming a morning person."},
+];
+
+const sampleGoals = [
+  {id:1,title:"Write a novel",desc:"Complete my first fiction manuscript — 80,000 words about memory and migration.",type:"long",progress:23,deadline:"2026-12-31",color:"#6b5ce7"},
+  {id:2,title:"Run a marathon",desc:"Complete a full 42.2km marathon. Currently training 4 days per week.",type:"long",progress:61,deadline:"2025-10-15",color:"#1ea8a0"},
+  {id:3,title:"Learn Spanish to B2",desc:"Achieve conversational fluency in Spanish. Daily Duolingo + weekly iTalki sessions.",type:"short",progress:45,deadline:"2025-12-01",color:"#c9a84c"},
+  {id:4,title:"Read 24 books this year",desc:"Two books per month. Fiction, philosophy, and business.",type:"short",progress:71,deadline:"2025-12-31",color:"#e85d7e"},
+  {id:5,title:"Save for apartment",desc:"Save ₹18 lakhs for down payment on a 2BHK apartment.",type:"long",progress:38,deadline:"2027-06-01",color:"#2da44e"},
+];
+
+const sampleIdeas = [
+  {id:1,type:"idea",title:"Memory-first e-commerce",content:"A marketplace where each product is sold with the story of its creation. Short video diaries from makers. No algorithms, just curation by values.",tags:["startup","commerce","storytelling"]},
+  {id:2,type:"thought",title:"On the nature of attention",content:"Attention is the most finite resource. Every choice about where to place it is a vote for who you want to become. Social media understood this before we did.",tags:["philosophy","focus","tech"]},
+  {id:3,type:"lesson",title:"Patience is a strategy",content:"In most competitive situations, the patient person wins. Not because waiting is inherently valuable but because patience signals that you have options.",tags:["strategy","life","business"]},
+  {id:4,type:"observation",title:"Cities reveal character at 6am",content:"The way a city behaves before it wakes up tells you more about it than any guidebook. Who's already working? Who's sleeping on benches? What smells? What sounds?",tags:["travel","cities","observation"]},
+  {id:5,type:"idea",title:"Personal API for your life",content:"A system that exports your daily data — mood, productivity, health, social — into a personal dashboard. Not owned by any platform. Your data, your insights.",tags:["tech","data","privacy"]},
+  {id:6,type:"lesson",title:"The compound effect of small habits",content:"Doing something 1% better every day means being 37x better at the end of a year. But the reverse is also true. Every small choice is a bet on your future self.",tags:["habits","growth","math"]},
+];
+
+const sampleBooks = [
+  {id:1,title:"My Travel Chronicles",emoji:"✈️",color:"linear-gradient(135deg,#1ea8a0,#0f6e56)",pages:47,chapters:8},
+  {id:2,title:"Philosophy Notes",emoji:"🧠",color:"linear-gradient(135deg,#6b5ce7,#4c3eb5)",pages:112,chapters:15},
+  {id:3,title:"Business Ideas",emoji:"💼",color:"linear-gradient(135deg,#c9a84c,#854f0b)",pages:23,chapters:5},
+  {id:4,title:"Dream Journal",emoji:"🌙",color:"linear-gradient(135deg,#e85d7e,#993556)",pages:89,chapters:0},
+];
+
+const dailyQuotes = [
+  {text:"The unexamined life is not worth living.",author:"Socrates"},
+  {text:"Write what should not be forgotten.",author:"Isabel Allende"},
+  {text:"Fill your paper with the breathings of your heart.",author:"William Wordsworth"},
+  {text:"To live is to think.",author:"Cicero"},
+  {text:"The secret of getting ahead is getting started.",author:"Mark Twain"},
+  {text:"What you do today can improve all your tomorrows.",author:"Ralph Marston"},
+  {text:"In the middle of every difficulty lies opportunity.",author:"Albert Einstein"},
+];
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+window.addEventListener('load', () => {
+  state.entries = sampleEntries;
+  state.goals = sampleGoals;
+  state.ideas = sampleIdeas;
+  state.books = sampleBooks;
+  setTimeout(()=>{
+    document.getElementById('loadingScreen').style.opacity='0';
+    setTimeout(()=>document.getElementById('loadingScreen').style.display='none',300);
+  },1800);
+});
+
+// ═══════════════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════════════
+function showAuth(mode){
+  state.authMode = mode;
+  document.getElementById('authOverlay').classList.remove('hidden');
+  updateAuthUI();
+}
+function updateAuthUI(){
+  const isLogin = state.authMode==='login';
+  document.getElementById('authTitle').textContent = isLogin ? 'Welcome back' : 'Create your diary';
+  document.getElementById('authSub').textContent = isLogin ? 'Sign in to your diary' : 'Start your story today — free forever';
+  document.getElementById('authBtnText').textContent = isLogin ? 'Sign in' : 'Create account';
+  document.getElementById('authSwitchText').textContent = isLogin ? "Don't have an account?" : "Already have one?";
+  document.getElementById('authSwitchBtn').textContent = isLogin ? 'Create one' : 'Sign in';
+  document.getElementById('nameGroup').style.display = isLogin ? 'none' : '';
+  document.getElementById('forgotWrap').style.display = isLogin ? '' : 'none';
+}
+function toggleAuthMode(){
+  state.authMode = state.authMode==='login' ? 'signup' : 'login';
+  updateAuthUI();
+}
+function handleAuth(){
+  const email = document.getElementById('emailInput').value;
+  const password = document.getElementById('passwordInput').value;
+  const name = document.getElementById('nameInput').value;
+  if(!email||!password){showNotification('Please fill in all fields','error');return;}
+  const userName = state.authMode==='signup' ? (name||email.split('@')[0]) : 'Sarah Johnson';
+  loginUser({name:userName,email,avatar:userName.charAt(0).toUpperCase()});
+}
+function showForgot(e){e.preventDefault();showNotification('Password reset link sent to your email ✓','success');}
+function enterDemo(){
+  state.isDemo=true;
+  loginUser({name:'Sarah Johnson',email:'sarah@example.com',avatar:'S'});
+}
+function loginUser(user){
+  state.user = user;
+  document.getElementById('authOverlay').classList.add('hidden');
+  document.getElementById('landingPage').classList.add('hidden');
+  document.getElementById('appShell').classList.remove('hidden');
+  updateUserUI();
+  navigate('dashboard');
+  showNotification(`Welcome back, ${user.name.split(' ')[0]}! ✨`,'success');
+}
+function updateUserUI(){
+  if(!state.user)return;
+  const initial = state.user.avatar||state.user.name.charAt(0).toUpperCase();
+  document.getElementById('sidebarAvatar').textContent = initial;
+  document.getElementById('sidebarName').textContent = state.user.name;
+}
+
+// ═══════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════
+const pageTitles = {
+  dashboard:'Dashboard',diary:'My Diary',vault:'Ideas Vault',
+  books:'My Books',goals:'Goals',memories:'Memories',
+  achievements:'Achievements',ai:'AI Assistant',profile:'Profile & Settings'
+};
+function navigate(page, action){
+  state.currentPage = page;
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  const items = document.querySelectorAll('.nav-item');
+  items.forEach(el=>{if(el.textContent.trim().startsWith(navIcon(page)))el.classList.add('active');});
+  document.getElementById('topbarTitle').textContent = pageTitles[page]||page;
+  document.getElementById('contentArea').innerHTML='';
+  closeSidebar();
+  if(action==='new'&&page==='diary'){openEditor();return;}
+  const renderFn = {
+    dashboard:renderDashboard,diary:renderDiary,vault:renderVault,
+    books:renderBooks,goals:renderGoals,memories:renderMemories,
+    achievements:renderAchievements,ai:renderAI,profile:renderProfile
+  }[page];
+  if(renderFn) renderFn();
+}
+function navIcon(page){
+  return {dashboard:'🏠',diary:'📔',vault:'💡',books:'📚',goals:'🎯',memories:'🌟',achievements:'🏆',ai:'🤖',profile:'👤'}[page]||'';
+}
+function openSidebar(){
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebarOverlay').classList.remove('hidden');
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.add('hidden');
+}
+
+// ═══════════════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════════════
+function renderDashboard(){
+  const hour = new Date().getHours();
+  const greeting = hour<12?'Good morning':'hour<17?'Good afternoon':'Good evening';
+  const quote = dailyQuotes[new Date().getDate()%dailyQuotes.length];
+  const totalWords = state.entries.reduce((a,e)=>a+(e.content||'').split(' ').length,0);
+  const ca = document.getElementById('contentArea');
+  ca.innerHTML=`<div class="page">
+  <div class="dash-greeting">
+    <h2>${greeting} ${state.user?.name?.split(' ')[0]||''} ✨</h2>
+    <p>${new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</p>
+  </div>
+
+  <div class="quote-card">
+    <div class="quote-text">${quote.text}</div>
+    <div class="quote-author">— ${quote.author}</div>
+  </div>
+
+  <div class="dash-stats">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:var(--accent-soft)">📔</div>
+      <div class="stat-num">${state.entries.length}</div>
+      <div class="stat-label">Diary entries</div>
+      <div class="stat-trend trend-up">↑ 3 this week</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:var(--gold-soft)">🎯</div>
+      <div class="stat-num">${state.goals.length}</div>
+      <div class="stat-label">Active goals</div>
+      <div class="stat-trend trend-up">↑ 1 completed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:var(--teal-soft)">💡</div>
+      <div class="stat-num">${state.ideas.length}</div>
+      <div class="stat-label">Ideas saved</div>
+      <div class="stat-trend trend-up">↑ 2 new</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:var(--rose-soft)">✍️</div>
+      <div class="stat-num">${(totalWords/1000).toFixed(1)}k</div>
+      <div class="stat-label">Words written</div>
+      <div class="stat-trend trend-up">↑ All time</div>
+    </div>
+  </div>
+
+  <div class="dash-grid">
+    <div>
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <span class="card-title">Today's Mood</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size:13px;color:var(--ink-muted);margin-bottom:12px;">How are you feeling right now?</p>
+          <div class="mood-row">
+            <div class="mood-chip mood-great" onclick="selectMood(this,'great')">😄 Great</div>
+            <div class="mood-chip mood-good" onclick="selectMood(this,'good')">🙂 Good</div>
+            <div class="mood-chip mood-meh" onclick="selectMood(this,'meh')">😐 Meh</div>
+            <div class="mood-chip mood-bad" onclick="selectMood(this,'bad')">😔 Low</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Writing Activity</span>
+          <span class="card-action" onclick="navigate('diary')">View all →</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size:12px;color:var(--ink-faint);margin-bottom:10px;">Past 52 weeks</p>
+          <div class="activity-grid" id="activityGrid"></div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:12px;font-size:11px;color:var(--ink-faint);">
+            <span>Less</span>
+            <div style="display:flex;gap:3px;">
+              <div class="act-cell act-0" style="width:10px;height:10px;"></div>
+              <div class="act-cell act-1" style="width:10px;height:10px;"></div>
+              <div class="act-cell act-2" style="width:10px;height:10px;"></div>
+              <div class="act-cell act-3" style="width:10px;height:10px;"></div>
+              <div class="act-cell act-4" style="width:10px;height:10px;"></div>
+            </div>
+            <span>More</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <span class="card-title">Recent Entries</span>
+          <span class="card-action" onclick="navigate('diary')">See all →</span>
+        </div>
+        <div id="recentEntries"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Goals Progress</span>
+          <span class="card-action" onclick="navigate('goals')">View all →</span>
+        </div>
+        <div class="card-body" id="dashGoals"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:32px;">
+    <button class="btn btn-primary btn-lg" onclick="openEditor()">✏️ Write today's entry</button>
+  </div>
+</div>`;
+  buildActivityGrid();
+  buildRecentEntries();
+  buildDashGoals();
+}
+function buildActivityGrid(){
+  const grid = document.getElementById('activityGrid');
+  if(!grid)return;
+  let html='';
+  for(let i=0;i<364;i++){
+    const level = Math.random()<0.4?0:Math.floor(Math.random()*5);
+    html+=`<div class="act-cell act-${level}" title="Week ${Math.floor(i/7)+1}"></div>`;
+  }
+  grid.innerHTML=html;
+}
+function buildRecentEntries(){
+  const el = document.getElementById('recentEntries');
+  if(!el)return;
+  const moodMap = {great:'😄',good:'🙂',meh:'😐',bad:'😔'};
+  el.innerHTML = state.entries.slice(0,3).map(e=>`
+    <div onclick="openEntry(${e.id})" style="display:flex;gap:12px;padding:14px 20px;cursor:pointer;border-bottom:1px solid var(--border-soft);transition:background var(--transition);" onmouseenter="this.style.background='var(--paper-warm)'" onmouseleave="this.style.background=''">
+      <div style="font-size:24px;">${moodMap[e.mood]||'📝'}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-weight:600;font-size:14px;color:var(--ink);margin-bottom:2px;">${e.title}</div>
+        <div style="font-size:12px;color:var(--ink-faint);">${e.date} · ${e.category}</div>
+      </div>
+    </div>
+  `).join('');
+}
+function buildDashGoals(){
+  const el = document.getElementById('dashGoals');
+  if(!el)return;
+  el.innerHTML = state.goals.slice(0,3).map(g=>`
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-size:13px;font-weight:500;color:var(--ink);">${g.title}</span>
+        <span style="font-size:13px;color:var(--ink-muted);">${g.progress}%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${g.progress}%;background:${g.color};"></div></div>
+    </div>
+  `).join('');
+}
+function selectMood(el,mood){
+  document.querySelectorAll('.mood-chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.selectedMood=mood;
+  const labels={great:'Wonderful! Embrace this energy ✨',good:"That's great! Keep it going.",meh:"It's okay. Even quiet days matter.",bad:"Take it easy. You're doing well."};
+  showNotification(labels[mood]||'Mood recorded!','success');
+}
+
+// ═══════════════════════════════════════════════════════
+// DIARY
+// ═══════════════════════════════════════════════════════
+function renderDiary(){
+  const ca = document.getElementById('contentArea');
+  ca.innerHTML=`<div class="page">
+  <div class="entries-toolbar">
+    <button class="btn btn-primary" onclick="openEditor()">✏️ New entry</button>
+    <select class="form-input form-select" style="width:160px;padding:8px 12px;font-size:13px;" onchange="filterEntries(this.value)">
+      <option value="">All categories</option>
+      <option>Personal</option><option>Travel</option><option>Work</option>
+      <option>Gratitude</option><option>Dreams</option><option>Reflections</option>
+    </select>
+    <select class="form-input form-select" style="width:140px;padding:8px 12px;font-size:13px;">
+      <option>All moods</option><option>😄 Great</option><option>🙂 Good</option><option>😐 Meh</option><option>😔 Low</option>
+    </select>
+    <div style="margin-left:auto;font-size:13px;color:var(--ink-faint);">${state.entries.length} entries</div>
+  </div>
+  <div class="entries-grid" id="entriesGrid"></div>
+</div>`;
+  renderEntryCards(state.entries);
+}
+function renderEntryCards(entries){
+  const grid = document.getElementById('entriesGrid');
+  if(!grid)return;
+  const moodMap = {great:'😄',good:'🙂',meh:'😐',bad:'😔'};
+  const catColors = {Personal:'var(--accent)',Travel:'var(--teal)',Work:'var(--gold)',Gratitude:'var(--green)',Dreams:'var(--rose)',Reflections:'var(--ink-muted)'};
+  grid.innerHTML = entries.map(e=>`
+    <div class="entry-card" onclick="openEntry(${e.id})">
+      <div class="entry-meta">
+        <span class="entry-date">${e.date}</span>
+        <span class="entry-mood-icon">${moodMap[e.mood]||'📝'}</span>
+        <span class="entry-category" style="background:${catColors[e.category]||'var(--accent)'}18;color:${catColors[e.category]||'var(--accent)'};">${e.category}</span>
+      </div>
+      <div class="entry-title">${e.title}</div>
+      <div class="entry-preview">${e.preview||e.content}</div>
+      <div class="entry-footer">
+        <div class="entry-tags">${(e.tags||[]).map(t=>`<span class="tag">#${t}</span>`).join('')}</div>
+        <div class="entry-actions">
+          <div class="entry-action-btn" onclick="event.stopPropagation();editEntry(${e.id})" title="Edit">✏️</div>
+          <div class="entry-action-btn" onclick="event.stopPropagation();deleteEntry(${e.id})" title="Delete">🗑</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+function filterEntries(cat){
+  const filtered = cat ? state.entries.filter(e=>e.category===cat) : state.entries;
+  renderEntryCards(filtered);
+}
+function openEntry(id){
+  const entry = state.entries.find(e=>e.id===id);
+  if(!entry)return;
+  state.editorEntry = entry;
+  openEditor(entry);
+}
+function editEntry(id){openEntry(id);}
+function deleteEntry(id){
+  state.entries = state.entries.filter(e=>e.id!==id);
+  document.getElementById('entryCount').textContent=state.entries.length;
+  renderDiary();
+  showNotification('Entry deleted','error');
+}
+
+// ═══════════════════════════════════════════════════════
+// EDITOR
+// ═══════════════════════════════════════════════════════
+function openEditor(entry){
+  document.getElementById('editorOverlay').classList.remove('hidden');
+  document.getElementById('editorDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  if(entry){
+    document.getElementById('entryTitle').value = entry.title||'';
+    document.getElementById('editorContent').innerHTML = entry.content||'';
+    document.getElementById('entryCategory').value = entry.category||'Personal';
+  } else {
+    document.getElementById('entryTitle').value='';
+    document.getElementById('editorContent').innerHTML='';
+    state.editorEntry=null;
+  }
+  document.getElementById('entryTitle').focus();
+}
+function closeEditor(){
+  document.getElementById('editorOverlay').classList.add('hidden');
+  state.editorEntry=null;
+}
+function onEditorChange(){
+  clearTimeout(state.autoSaveTimer);
+  document.getElementById('autosaveStatus').textContent='Saving…';
+  state.autoSaveTimer = setTimeout(()=>{
+    document.getElementById('autosaveStatus').textContent='Auto-saved';
+  },1500);
+}
+function saveEntry(){
+  const title = document.getElementById('entryTitle').value||'Untitled';
+  const content = document.getElementById('editorContent').innerText;
+  const category = document.getElementById('entryCategory').value;
+  if(state.editorEntry){
+    const idx = state.entries.findIndex(e=>e.id===state.editorEntry.id);
+    if(idx>=0){state.entries[idx]={...state.entries[idx],title,content,category,preview:content.slice(0,150)};}
+  } else {
+    const newEntry={id:Date.now(),title,content,category,preview:content.slice(0,150),date:new Date().toISOString().split('T')[0],mood:state.selectedMood||'good',tags:[]};
+    state.entries.unshift(newEntry);
+  }
+  document.getElementById('entryCount').textContent=state.entries.length;
+  showNotification('Entry saved ✓','success');
+  closeEditor();
+  if(state.currentPage==='diary') renderDiary();
+}
+function format(cmd){
+  document.getElementById('editorContent').focus();
+  if(cmd==='h1'){document.execCommand('formatBlock',false,'h2');}
+  else if(cmd==='h2'){document.execCommand('formatBlock',false,'h3');}
+  else if(cmd==='ul'){document.execCommand('insertUnorderedList');}
+  else if(cmd==='ol'){document.execCommand('insertOrderedList');}
+  else if(cmd==='quote'){document.execCommand('formatBlock',false,'blockquote');}
+  else{document.execCommand(cmd);}
+}
+function setEditorMood(el,mood){
+  document.querySelectorAll('#editorOverlay .mood-chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.selectedMood=mood;
+}
+function insertImage(){showNotification('Image upload — connect cloud storage to enable','info');}
+function insertLink(){
+  const url=prompt('Enter URL:');
+  if(url)document.execCommand('createLink',false,url);
+}
+function aiEnhance(){
+  showNotification('AI is enhancing your writing… ✨','info');
+  setTimeout(()=>showNotification('Writing enhanced! Suggestions ready.','success'),2000);
+}
+function aiSummarize(){
+  const content = document.getElementById('editorContent').innerText;
+  if(!content){showNotification('Write something first!','info');return;}
+  showNotification('AI is summarizing… 🤖','info');
+  setTimeout(()=>showNotification('Summary generated! Check AI Assistant.','success'),2000);
+}
+
+// ═══════════════════════════════════════════════════════
+// GOALS
+// ═══════════════════════════════════════════════════════
+function renderGoals(){
+  const ca = document.getElementById('contentArea');
+  ca.innerHTML=`<div class="page">
+  <div class="goals-header">
+    <div>
+      <h2 style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:4px;">Your Goals</h2>
+      <p style="font-size:14px;color:var(--ink-muted);">Track your ambitions and make them real</p>
+    </div>
+    <button class="btn btn-primary" onclick="openModal('goalModal')">＋ New goal</button>
+  </div>
+  <div class="goals-filter" style="margin-bottom:20px;">
+    <div class="filter-pill active" onclick="filterGoals('all',this)">All</div>
+    <div class="filter-pill" onclick="filterGoals('short',this)">Short-term</div>
+    <div class="filter-pill" onclick="filterGoals('long',this)">Long-term</div>
+    <div class="filter-pill" onclick="filterGoals('done',this)">Completed</div>
+  </div>
+  <div class="goals-grid" id="goalsGrid"></div>
+  
+  <div style="margin-top:32px;">
+    <h3 style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--ink);margin-bottom:16px;">Vision Board</h3>
+    <div class="vision-board" id="visionBoard"></div>
+  </div>
+</div>`;
+  renderGoalCards(state.goals);
+  buildVisionBoard();
+}
+function renderGoalCards(goals){
+  const grid = document.getElementById('goalsGrid');
+  if(!grid)return;
+  grid.innerHTML = goals.map(g=>`
+    <div class="goal-card">
+      <div class="goal-header">
+        <div>
+          <div class="goal-title">${g.title}</div>
+        </div>
+        <span class="goal-type-badge ${g.type==='long'?'long':''}">${g.type==='long'?'Long-term':'Short-term'}</span>
+      </div>
+      <div class="goal-desc">${g.desc}</div>
+      <div class="goal-progress">
+        <div class="progress-row">
+          <span class="progress-label">Progress</span>
+          <span class="progress-pct">${g.progress}%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:${g.progress}%;background:${g.color};"></div>
+        </div>
+      </div>
+      <div class="goal-footer">
+        <div class="goal-deadline">📅 ${g.deadline}</div>
+        <div style="display:flex;gap:6px;">
+          <button class="btn" style="padding:5px 12px;font-size:12px;background:var(--paper-warm);border:1px solid var(--border);border-radius:6px;color:var(--ink);" onclick="updateProgress(${g.id})">Update %</button>
+          <button class="btn" style="padding:5px 12px;font-size:12px;background:var(--green-soft);border:1px solid var(--green);border-radius:6px;color:var(--green);" onclick="completeGoal(${g.id})">✓ Done</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+function filterGoals(type,el){
+  document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  const filtered = type==='all'?state.goals:type==='done'?[]:state.goals.filter(g=>g.type===type);
+  renderGoalCards(filtered);
+}
+function buildVisionBoard(){
+  const board = document.getElementById('visionBoard');
+  if(!board)return;
+  const items=[
+    {emoji:'🏠',label:'Dream Home',filled:true,color:'#e0ecff'},
+    {emoji:'✈️',label:'Travel the world',filled:true,color:'#e0fff8'},
+    {emoji:'💰',label:'Financial freedom',filled:true,color:'#fffaed'},
+    {emoji:'📖',label:'Write a book',filled:true,color:'#fdeef3'},
+    {emoji:'🏃',label:'Peak fitness',filled:true,color:'#eafbee'},
+    {emoji:'+',label:'Add vision',filled:false},
+  ];
+  board.innerHTML=items.map(item=>`
+    <div class="vision-cell ${item.filled?'filled':''}" style="${item.filled?`background:${item.color};`:''}">
+      <div class="vision-emoji">${item.emoji}</div>
+      <div style="font-size:12px;color:var(--ink-muted);font-weight:500;">${item.label}</div>
+    </div>
+  `).join('');
+}
+function updateProgress(id){
+  const pct = prompt('Update progress (0-100%):');
+  if(pct===null)return;
+  const val=Math.min(100,Math.max(0,parseInt(pct)||0));
+  const goal = state.goals.find(g=>g.id===id);
+  if(goal){goal.progress=val;renderGoals();showNotification(`Progress updated to ${val}% ✓`,'success');}
+}
+function completeGoal(id){
+  state.goals=state.goals.filter(g=>g.id!==id);
+  renderGoals();
+  showNotification('Goal completed! Congratulations! 🎉','success');
+}
+function addGoal(){
+  const title=document.getElementById('goalTitle').value;
+  const desc=document.getElementById('goalDesc').value;
+  const type=document.getElementById('goalType').value;
+  const deadline=document.getElementById('goalDeadline').value;
+  if(!title){showNotification('Please enter a goal title','error');return;}
+  const colors=['#6b5ce7','#1ea8a0','#c9a84c','#e85d7e','#2da44e'];
+  state.goals.push({id:Date.now(),title,desc,type,progress:0,deadline:deadline||'No deadline',color:colors[state.goals.length%colors.length]});
+  closeModal('goalModal');
+  renderGoals();
+  showNotification('Goal created! ✓','success');
+}
+
+// ═══════════════════════════════════════════════════════
+// IDEAS VAULT
+// ═══════════════════════════════════════════════════════
+function renderVault(){
+  const ca = document.getElementById('contentArea');
+  ca.innerHTML=`<div class="page">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+    <div>
+      <h2 style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:4px;">Ideas Vault</h2>
+      <p style="font-size:14px;color:var(--ink-muted);">${state.ideas.length} ideas captured</p>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <select class="form-input form-select" style="width:150px;padding:8px 12px;font-size:13px;" onchange="filterIdeas(this.value)">
+        <option value="">All types</option>
+        <option value="idea">💡 Ideas</option>
+        <option value="thought">🧠 Thoughts</option>
+        <option value="lesson">📖 Lessons</option>
+        <option value="observation">👁 Observations</option>
+      </select>
+      <button class="btn btn-primary" onclick="openModal('ideaModal')">＋ Add idea</button>
+    </div>
+  </div>
+  <div class="vault-grid" id="vaultGrid"></div>
+</div>`;
+  renderIdeaCards(state.ideas);
+}
+function renderIdeaCards(ideas){
+  const grid = document.getElementById('vaultGrid');
+  if(!grid)return;
+  const typeMap={idea:'💡 Business Idea',thought:'🧠 Thought',lesson:'📖 Life Lesson',observation:'👁 Observation'};
+  grid.innerHTML=ideas.map(idea=>`
+    <div class="idea-card idea-${idea.type}">
+      <div class="idea-type">${typeMap[idea.type]||idea.type}</div>
+      <div class="idea-title">${idea.title}</div>
+      <div class="idea-body">${idea.content}</div>
+      <div class="idea-tags">${(idea.tags||[]).map(t=>`<span class="tag">#${t}</span>`).join('')}</div>
+    </div>
+  `).join('');
+}
+function filterIdeas(type){
+  const filtered=type?state.ideas.filter(i=>i.type===type):state.ideas;
+  renderIdeaCards(filtered);
+}
+function addIdea(){
+  const title=document.getElementById('ideaTitle').value;
+  const content=document.getElementById('ideaContent').value;
+  const type=document.getElementById('ideaType').value.split(' ')[0].trim();
+  const tagsRaw=document.getElementById('ideaTags').value;
+  if(!title){showNotification('Please enter a title','error');return;}
+  const typeMap={'💡':'idea','🧠':'thought','📖':'lesson','👁':'observation'};
+  state.ideas.unshift({id:Date.now(),title,content,type:typeMap[type]||'idea',tags:tagsRaw.split(',').map(t=>t.trim()).filter(Boolean)});
+  closeModal('ideaModal');
+  renderVault();
+  showNotification('Idea saved to vault! ✓','success');
+}
+
+// ═══════════════════════════════════════════════════════
+// BOOKS
+// ═══════════════════════════════════════════════════════
+function renderBooks(){
+  const ca = document.getElementById('contentArea');
+  ca.innerHTML=`<div class="page">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+    <div>
+      <h2 style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:4px;">My Books</h2>
+      <p style="font-size:14px;color:var(--ink-muted);">${state.books.length} personal books</p>
+    </div>
+  </div>
+  <div class="books-shelf">
+    ${state.books.map(b=>`
+      <div class="book-card" onclick="openBook(${b.id})">
+        <div class="book-cover" style="background:${b.color}">
+          <div class="book-icon">${b.emoji}</div>
+          <div class="book-cover-title">${b.title}</div>
+        </div>
+        <div class="book-name">${b.title}</div>
+        <div class="book-meta">${b.pages} pages · ${b.chapters} chapters</div>
+      </div>
+    `).join('')}
+    <div class="book-card add-book-card" onclick="createBook()">
+      <div class="book-cover">
+        <div class="book-icon" style="font-size:40px;color:var(--ink-faint)">＋</div>
+        <div style="font-size:13px;color:var(--ink-faint);font-weight:500;">New Book</div>
+      </div>
+      <div class="book-name" style="color:var(--ink-muted)">Create new book</div>
+    </div>
+  </div>
+</div>`;
+}
+function openBook(id){showNotification('Opening book… full book reader coming soon!','info');}
+function createBook(){
+  const title=prompt('Book title:');
+  if(!title)return;
+  const emojis=['📗','📘','📙','📕','📓','📒'];
+  const colors=['linear-gradient(135deg,#6b5ce7,#4c3eb5)','linear-gradient(135deg,#1ea8a0,#0f6e56)','linear-gradient(135deg,#c9a84c,#854f0b)','linear-gradient(135deg,#e85d7e,#993556)'];
+  state.books.unshift({id:Date.now(),title,emoji:emojis[Math.floor(Math.random()*emojis.length)],color:colors[Math.floor(Math.random()*colors.length)],pages:0,chapters:0});
+  renderBooks();
+  showNotification(`"${title}" created! ✓`,'success');
+}
+
+// ═══════════════════════════════════════════════════════
+// MEMORIES & ACHIEVEMENTS
+// ═══════════════════════════════════════════════════════
+function renderMemories(){
+  const ca=document.getElementById('contentArea');
+  const memories=[
+    {emoji:'🗼',title:'First trip to Paris',date:'2023-04-15',desc:'Stood under the Eiffel Tower at midnight. The lights went on every hour like a heartbeat.'},
+    {emoji:'🎓',title:'Graduated with distinction',date:'2022-07-01',desc:'Five years of late nights, early mornings, and quiet persistence — finally paid off.'},
+    {emoji:'🌅',title:'Watched the sunrise at Santorini',date:'2024-09-03',desc:'The caldera at dawn. A moment I will never forget.'},
+    {emoji:'👶',title:'Met my niece for the first time',date:'2023-11-20',desc:'She wrapped her tiny hand around my finger. Everything made sense.'},
+    {emoji:'🎸',title:'First open mic performance',date:'2021-08-14',desc:'Terrified. Exhilarated. Will do it again.'},
+  ];
+  ca.innerHTML=`<div class="page">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+    <div>
+      <h2 style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:4px;">Memories</h2>
+      <p style="font-size:14px;color:var(--ink-muted);">Moments worth remembering forever</p>
+    </div>
+    <button class="btn btn-primary" onclick="showNotification('Memory capture coming soon!','info')">✦ Capture memory</button>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;">
+    ${memories.map(m=>`
+      <div class="card" style="border-left:4px solid var(--accent);">
+        <div class="card-body">
+          <div style="font-size:40px;margin-bottom:12px;">${m.emoji}</div>
+          <div style="font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:6px;">${m.title}</div>
+          <div style="font-size:12px;color:var(--ink-faint);margin-bottom:10px;font-family:var(--font-mono);">${m.date}</div>
+          <div style="font-size:13px;color:var(--ink-muted);line-height:1.6;font-style:italic;">"${m.desc}"</div>
+        </div>
+      </div>
+    `).join('')}
+  </div>
+</div>`;
+}
+function renderAchievements(){
+  const ca=document.getElementById('contentArea');
+  const achievements=[
+    {emoji:'🏅',title:'1-Month Writing Streak',desc:'Wrote in your diary every day for 30 consecutive days.',date:'2025-05-31',rare:false},
+    {emoji:'📚',title:'Bookworm',desc:'Read and logged 10 books in your diary.',date:'2025-03-15',rare:false},
+    {emoji:'🎯',title:'Goal Crusher',desc:'Completed 5 personal goals.',date:'2025-04-22',rare:true},
+    {emoji:'✍️',title:'10,000 Words',desc:'Written over 10,000 words across all your entries.',date:'2025-02-08',rare:false},
+    {emoji:'🌍',title:'World Explorer',desc:'Logged travel entries from 5 different countries.',date:'2025-01-14',rare:true},
+    {emoji:'💡',title:'Idea Machine',desc:'Captured 50 ideas in the vault.',date:'2025-06-01',rare:false},
+  ];
+  ca.innerHTML=`<div class="page">
+  <div style="margin-bottom:24px;">
+    <h2 style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--ink);margin-bottom:4px;">Achievements</h2>
+    <p style="font-size:14px;color:var(--ink-muted);">Your milestones and badges earned</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
+    ${achievements.map(a=>`
+      <div class="card" style="${a.rare?'border:1.5px solid var(--gold);background:var(--gold-soft);':''}">
+        <div class="card-body" style="text-align:center;">
+          ${a.rare?`<div style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">✦ Rare</div>`:''}
+          <div style="font-size:52px;margin-bottom:12px;">${a.emoji}</div>
+          <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px;">${a.title}</div>
+          <div style="font-size:13px;color:var(--ink-muted);margin-bottom:12px;line-height:1.5;">${a.desc}</div>
+          <div style="font-size:11px;color:var(--ink-faint);">Earned ${a.date}</div>
+        </div>
+      </div>
+    `).join('')}
+  </div>
+</div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// AI ASSISTANT
+// ═══════════════════════════════════════════════════════
+function renderAI(){
+  const ca=document.getElementById('contentArea');
+  ca.innerHTML=`<div class="page">
+  <div class="ai-panel">
+    <div class="ai-hero">
+      <div class="ai-avatar">🤖</div>
+      <h2>AI Writing Assistant</h2>
+      <p>Powered by Claude — ask about your diary, get insights, summarize entries, and more.</p>
+    </div>
+    <div class="ai-suggestions">
+      <button class="ai-suggestion" onclick="aiChat('Summarize my recent diary entries')">
+        <strong>📝 Summarize entries</strong>What have I been writing about lately?
+      </button>
+      <button class="ai-suggestion" onclick="aiChat('What patterns do you see in my goals?')">
+        <strong>🎯 Goal insights</strong>Analyze my goals and progress
+      </button>
+      <button class="ai-suggestion" onclick="aiChat('Give me a writing prompt for today')">
+        <strong>✍️ Writing prompt</strong>Help me start today's entry
+      </button>
+      <button class="ai-suggestion" onclick="aiChat('What are my most common themes and emotions?')">
+        <strong>💡 Themes & patterns</strong>Find patterns in my writing
+      </button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input-row">
+      <input type="text" placeholder="Ask anything about your diary, goals, or life…" id="chatInput" onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()">→</button>
+    </div>
+    <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--ink-faint);">🔒 Your conversations are private and encrypted</div>
+  </div>
+</div>`;
+  if(state.chatHistory.length===0){
+    addChatMessage('ai','Hello! I\'m your AI writing assistant. I can help you reflect on your diary, find patterns in your thoughts, generate writing prompts, summarize your entries, and much more. What would you like to explore?');
+  } else {
+    renderChatHistory();
+  }
+}
+function renderChatHistory(){
+  const msgs=document.getElementById('chatMessages');
+  if(!msgs)return;
+  msgs.innerHTML=state.chatHistory.map(m=>`
+    <div class="chat-msg ${m.role}">
+      <div class="chat-avatar ${m.role==='ai'?'ai-av':'user-av'}">${m.role==='ai'?'🤖':(state.user?.avatar||'S')}</div>
+      <div class="chat-bubble">${m.content}</div>
+    </div>
+  `).join('');
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function addChatMessage(role,content){
+  state.chatHistory.push({role,content});
+  const msgs=document.getElementById('chatMessages');
+  if(!msgs)return;
+  const div=document.createElement('div');
+  div.className=`chat-msg ${role}`;
+  div.innerHTML=`<div class="chat-avatar ${role==='ai'?'ai-av':'user-av'}">${role==='ai'?'🤖':(state.user?.avatar||'S')}</div><div class="chat-bubble">${content}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function aiChat(msg){
+  const input=document.getElementById('chatInput');
+  if(input)input.value=msg;
+  sendChat();
+}
+async function sendChat(){
+  const input=document.getElementById('chatInput');
+  if(!input)return;
+  const msg=input.value.trim();
+  if(!msg)return;
+  input.value='';
+  addChatMessage('user',msg);
+
+  const diaryContext = state.entries.slice(0,3).map(e=>`Entry: "${e.title}" (${e.date}, mood: ${e.mood}): ${e.content?.slice(0,200)}...`).join('\n');
+  const goalsContext = state.goals.map(g=>`Goal: "${g.title}" — ${g.progress}% complete`).join('\n');
+
+  const thinking=document.createElement('div');
+  thinking.className='chat-msg ai';
+  thinking.innerHTML='<div class="chat-avatar ai-av">🤖</div><div class="chat-bubble" style="color:var(--ink-faint);">Thinking…</div>';
+  const msgs=document.getElementById('chatMessages');
+  if(msgs){msgs.appendChild(thinking);msgs.scrollTop=msgs.scrollHeight;}
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:1000,
+        system:`You are a warm, insightful AI assistant built into "My Life Diary" — a premium personal journal app. Help the user reflect on their diary entries, set goals, find patterns, and become their best self. Be concise, thoughtful, and personal. Here is context from the user's diary:\n\n${diaryContext}\n\nGoals:\n${goalsContext}`,
+        messages:[...state.chatHistory.slice(0,-1).map(m=>({role:m.role==='ai'?'assistant':'user',content:m.content})),{role:'user',content:msg}]
+      })
+    });
+    const data=await resp.json();
+    const reply=data.content?.map(c=>c.text||'').join('')||'I\'m having trouble connecting right now. Please try again.';
+    thinking.remove();
+    addChatMessage('ai',reply);
+  } catch(err) {
+    thinking.remove();
+    addChatMessage('ai','I\'m having trouble connecting to the AI service right now. Please check your connection and try again. In the meantime, I can tell you that your diary shows a consistent pattern of thoughtful self-reflection!');
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// PROFILE & SETTINGS
+// ═══════════════════════════════════════════════════════
+function renderProfile(){
+  const ca=document.getElementById('contentArea');
+  const userName=state.user?.name||'Sarah Johnson';
+  const userEmail=state.user?.email||'sarah@example.com';
+  const initials=userName.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+  ca.innerHTML=`<div class="page profile-panel">
+  <div style="position:relative;margin-bottom:0;">
+    <div class="profile-cover"></div>
+    <div class="profile-card">
+      <div class="profile-avatar-wrap">
+        <div class="profile-avatar">${initials}</div>
+        <button class="btn btn-outline" style="padding:8px 16px;font-size:13px;">Edit profile</button>
+      </div>
+      <div style="margin-top:12px;">
+        <div class="profile-name">${userName}</div>
+        <div style="font-size:13px;color:var(--ink-muted);margin-bottom:8px;">${userEmail}</div>
+        <div class="profile-bio">Writer, explorer, thinker. Capturing life one page at a time. 📔</div>
+        <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--ink);">${state.entries.length}</div>
+            <div style="font-size:12px;color:var(--ink-faint);">Entries</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--ink);">${state.goals.length}</div>
+            <div style="font-size:12px;color:var(--ink-faint);">Goals</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--ink);">${state.books.length}</div>
+            <div style="font-size:12px;color:var(--ink-faint);">Books</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--ink);">8</div>
+            <div style="font-size:12px;color:var(--ink-faint);">Day streak</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-title">Appearance</div>
+    <div class="setting-row">
+      <div><div class="setting-label">Dark mode</div><div class="setting-desc">Use dark theme</div></div>
+      <button class="toggle ${state.theme==='dark'?'on':''}" id="darkModeToggle" onclick="toggleTheme()"></button>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-label">Font size</div><div class="setting-desc">Text size in editor</div></div>
+      <select class="form-input form-select" style="width:120px;padding:6px 10px;font-size:13px;">
+        <option>Medium</option><option>Large</option><option>Small</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-title">Privacy & Security</div>
+    <div class="setting-row">
+      <div><div class="setting-label">End-to-end encryption</div><div class="setting-desc">All diary entries are encrypted</div></div>
+      <div class="enc-badge">🔒 Active</div>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-label">Two-factor authentication</div><div class="setting-desc">Add extra layer of security</div></div>
+      <button class="toggle" id="tfa" onclick="this.classList.toggle('on');showNotification('2FA '+( this.classList.contains('on')?'enabled':'disabled'),'success')"></button>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-label">Private diary mode</div><div class="setting-desc">Require auth to open app</div></div>
+      <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-title">Sync & Backup</div>
+    <div class="setting-row">
+      <div><div class="setting-label">Auto cloud sync</div><div class="setting-desc">Sync changes instantly</div></div>
+      <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-label">Offline mode</div><div class="setting-desc">Access diary without internet</div></div>
+      <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-label">Last synced</div></div>
+      <span style="font-size:13px;color:var(--green);">✓ Just now</span>
+    </div>
+  </div>
+
+  <div class="settings-section">
+    <div class="settings-title">Data</div>
+    <div class="setting-row">
+      <div><div class="setting-label">Export all data</div><div class="setting-desc">Download your complete diary</div></div>
+      <button class="btn btn-outline" style="padding:7px 14px;font-size:13px;" onclick="exportData()">Export</button>
+    </div>
+    <div class="setting-row">
+      <div><div class="setting-label">Import data</div><div class="setting-desc">Import from Notion, Evernote, etc.</div></div>
+      <button class="btn btn-outline" style="padding:7px 14px;font-size:13px;" onclick="showNotification('Import wizard coming soon!','info')">Import</button>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:20px 0;">
+    <button class="btn btn-ghost" style="color:var(--rose);border-color:var(--rose);" onclick="signOut()">Sign out</button>
+  </div>
+</div>`;
+}
+function exportData(){
+  const data=JSON.stringify({entries:state.entries,goals:state.goals,ideas:state.ideas,books:state.books},null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='my-life-diary-export.json';a.click();
+  showNotification('Data exported successfully!','success');
+}
+function signOut(){
+  state.user=null;state.chatHistory=[];
+  document.getElementById('appShell').classList.add('hidden');
+  document.getElementById('landingPage').classList.remove('hidden');
+  showNotification('Signed out successfully','info');
+}
+
+// ═══════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════
+function toggleTheme(){
+  state.theme=state.theme==='light'?'dark':'light';
+  document.documentElement.setAttribute('data-theme',state.theme);
+  const btn1=document.getElementById('themeBtn');
+  const btn2=document.getElementById('topThemeBtn');
+  const icon=state.theme==='dark'?'🌙':'☀️';
+  if(btn1)btn1.textContent=icon;
+  if(btn2)btn2.textContent=icon;
+  const toggle=document.getElementById('darkModeToggle');
+  if(toggle){toggle.classList.toggle('on',state.theme==='dark');}
+}
+function showNotification(msg,type='info'){
+  const container=document.getElementById('toastContainer');
+  const toast=document.createElement('div');
+  toast.className=`toast ${type}`;
+  const icons={success:'✓',error:'✕',info:'ℹ'};
+  toast.innerHTML=`<span>${icons[type]||'ℹ'}</span><span>${msg}</span>`;
+  container.appendChild(toast);
+  setTimeout(()=>{toast.style.opacity='0';toast.style.transform='translateX(100%)';toast.style.transition='all 0.3s';setTimeout(()=>toast.remove(),300);},3000);
+}
+function openModal(id){document.getElementById(id).classList.remove('hidden');}
+function closeModal(id){document.getElementById(id).classList.add('hidden');}
+function handleSearch(val){
+  if(!val.trim())return;
+  if(state.currentPage==='diary'){
+    const filtered=state.entries.filter(e=>
+      e.title.toLowerCase().includes(val.toLowerCase())||
+      (e.content||'').toLowerCase().includes(val.toLowerCase())
+    );
+    renderEntryCards(filtered);
+  }
+}
+
+// Close modals on overlay click
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('modal-overlay'))e.target.classList.add('hidden');
+});
+
+// Keyboard shortcut for new entry
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='k'){
+    e.preventDefault();
+    const search=document.getElementById('globalSearch');
+    if(search)search.focus();
+  }
+});
+</script>
+</body>
+</html>
